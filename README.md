@@ -31,14 +31,24 @@ The watering controls are:
 
 The light sensor controls an RGB indication: purple when no light is detected and off otherwise. This is an indicator/prototype function, not evidence of a validated plant-growth lighting system.
 
-## Open and test locally
+## Reproduce the UIFlow projects
 
-1. Use a UIFlow environment compatible with the original `.m5f` project format and your M5Stack firmware.
-2. Open one project from `src/` and review its unit types and port selections.
-3. Connect matching hardware, inspect the Blockly events and thresholds, then transfer the project to the board.
-4. First test readings, buttons, servo endpoints, and timer behaviour without water connected. Check the final mechanism separately.
+**Required hardware:** M5Stack controllers compatible with these projects, environment and Earth units, a compatible servo/watering mechanism, light sensor, RGB unit, cables, and an appropriate power supply. The two port maps above are different; use two controllers for the combined arrangement or load/test one arrangement at a time.
 
-The files are UIFlow/Blockly projects, not standalone Arduino sketches.
+```sh
+git clone https://github.com/ChuaJiaSheng/easy-vertical-farming.git
+cd easy-vertical-farming
+```
+
+1. Open a UIFlow editor that supports importing the original `.m5f` format. Import `src/Project_Earth and Env.m5f` for monitoring, or `src/Project_Servo and Light.m5f` for watering.
+2. Match the editor's unit selections and physical connections to the corresponding port table. Select/connect the intended controller and transfer the project using that UIFlow setup.
+3. For monitoring, check that temperature, humidity, pressure, and soil readings appear. Compare dry and moist soil readings; the moisture indicators should change according to the Blockly thresholds.
+4. For watering, first leave the water supply disconnected. Hold/release A to check the two servo positions. Press B to increase the displayed time, B+C to decrease it, and double-press C to check timed motion.
+5. Cover/uncover the light sensor to check the purple/off RGB behaviour. Connect and test the water mechanism only after verifying servo travel and timing.
+
+**Expected result:** the monitoring project displays sensor readings; the watering project changes the timer and servo position in response to the controls above. These checks require matching hardware and firmware.
+
+**Reproduction limits:** the exact original controller revision, UIFlow editor/firmware release, sensor calibration, power arrangement, and water-valve construction are not fully specified in the repository. Match these to your hardware before attempting the full physical build. A failed import can indicate an incompatible editor format rather than corrupt source. The files are UIFlow projects, not Arduino sketches.
 
 ## Demo references
 
